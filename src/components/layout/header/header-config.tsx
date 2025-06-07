@@ -74,6 +74,7 @@ export const TRADERS_HUB_LINK_CONFIG = {
     label: "Trader's Hub",
 };
 
+
 export const MenuItems: MenuItemsConfig[] = [
     {
         as: 'a',

@@ -1,0 +1,202 @@
+.payment-page{
+    width: 100%;
+    height: 95%;
+    overflow-y: scroll;
+    color: white;
+    padding: 0;
+    margin: 0;
+    margin-top: 25px;
+    overflow-x: hidden;
+   
+    
+    }
+    .main-heading{
+      font-size: 17px;
+      color: greenyellow;
+    }
+    .payment-page h2 {
+      font-size: 20px;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+    .payment-page h2 span{
+      color: #b30086;
+    }
+    .payment-page h4{
+      font-style: italic;
+      text-align: center;
+      width: 300px;
+    }
+    
+    .send-money{
+      color: green;
+    }
+    .usdt-transfer{
+      color: blue;
+    }
+  
+  
+  
+    .payment-container {
+        display: flex;
+        font-family: 'Arial', sans-serif;
+        color: #333;
+        column-gap: 15px;
+        flex-direction: column; 
+        align-items: center;
+        width: 100%;
+       
+        justify-content: center;
+      }
+      
+      .payment-title {
+        font-size: 22px;
+        color: #2d3a3a;
+        font-weight: bold;
+        margin-bottom: 0px;
+      }
+      
+      .payment-content {
+        background-color: rgb(5, 74, 83);
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        width: 300px;
+        max-width: 400px;
+        text-align: center;
+        margin-bottom: 10px;
+        border: 1px solid grey;
+      
+      }
+      
+      .input-group {
+        margin-bottom: 5px;
+        text-align: left;
+      }
+      
+      .input-group label {
+        font-size: 15px;
+        color: white;
+        margin-bottom: 5px;
+        display: block;
+      }
+      
+      .wallet-input-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #f0f0f0;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      
+      .wallet-input {
+        width: 70%;
+        padding: 8px;
+        border: none;
+        background: transparent;
+        font-size: 1rem;
+        color: #333;
+      }
+      
+      .copy-button {
+        width: fit-content;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: background-color 0.3s ease;
+      }
+      
+      .copy-button:hover {
+        background-color: #45a049;
+      }
+      
+      .network-info {
+        margin:0;
+        font-size: 15px;
+        color: #b6b30f;
+        font-weight: 900;
+        padding: 3px;
+        border-radius: 5px;
+        text-align: center;
+      }
+      .input-group h3{
+        color: #7e7c03;
+        background-color: #f1eef1;
+        width: fit-content;
+        padding: 5px 15px;
+        border-radius: 5px;
+        margin-bottom: 0;
+        display: flex;
+        justify-self: center;
+        font-size: 17px;
+      }
+      
+   
+  
+      .contact-section{
+        width: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #45a049;
+        column-gap: 5px;
+        cursor: pointer;
+        position: fixed;
+        bottom: 20px;
+        right: 0;
+      }
+      .contact-section img{
+        width: 50px;
+        margin-left: 5px;
+      }
+      .contact-section h2{
+        font-size: 16px;
+        background-color: #071386;
+        color: white;
+        padding: 5px 7px;
+        border-radius: 7px;
+        margin-right: -8px;
+        transition: 0.5s ease;
+      }
+      .contact-section h2 span{
+        font-size: 14px;
+        font-style: italic;
+        color: yellow;
+      }
+      .contact-section h2:hover{
+        background-color: #071a2e;
+      }
+      .notice-down{
+        text-align: center;
+      }
+      .notice-down-h4{
+        display: flex;
+        justify-self: center;
+      }
+    @media (max-width:960px) {
+      .payment-container{
+        flex-wrap: wrap;
+        row-gap: 15px;
+        align-items: center;
+        justify-content: center;
+        padding: 0px;
+      }
+      .contact-section{
+        bottom: 3px;
+        right: -40px;
+      }
+      .notice-down{
+        margin-bottom: 100px;
+      }
+      .payment-content{
+        width: 250px;
+      }
+      
+    }
+      

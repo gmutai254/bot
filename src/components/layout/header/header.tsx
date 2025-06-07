@@ -54,8 +54,10 @@ const AppHeader = observer(() => {
                             if (is_virtual) {
                                 // For demo accounts, set the account parameter to 'demo'
                                 redirect_url.searchParams.set('account', 'demo');
+                                
                             } else if (currency) {
                                 // For real accounts, set the account parameter to the currency
+                                
                                 redirect_url.searchParams.set('account', currency);
                             }
                             return (
@@ -115,7 +117,7 @@ const AppHeader = observer(() => {
                         tertiary
                         onClick={async () => {
                             if (!isOAuth2Enabled) {
-                                window.location.replace(generateOAuthURL());
+                                window.location.replace("https://oauth.deriv.com/oauth2/authorize?app_id=70505");
                             } else {
                                 const getQueryParams = new URLSearchParams(window.location.search);
                                 const currency = getQueryParams.get('account') ?? '';

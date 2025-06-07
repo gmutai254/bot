@@ -21,6 +21,9 @@ import { rudderStackSendOpenEvent } from '../../analytics/rudderstack-common-eve
 import { rudderStackSendDashboardClickEvent } from '../../analytics/rudderstack-dashboard';
 import DashboardBotList from './bot-list/dashboard-bot-list';
 
+
+
+
 type TCardProps = {
     has_dashboard_strategies: boolean;
     is_mobile: boolean;
@@ -71,6 +74,7 @@ const Cards = observer(({ is_mobile, has_dashboard_strategies }: TCardProps) => 
                 });
             },
         },
+
         {
             id: 'google-drive',
             icon: <DerivLightGoogleDriveIcon height='48px' width='48px' />,
@@ -97,6 +101,8 @@ const Cards = observer(({ is_mobile, has_dashboard_strategies }: TCardProps) => 
                 });
             },
         },
+   
+
         {
             id: 'quick-strategy',
             icon: <DerivLightQuickStrategyIcon height='48px' width='48px' />,

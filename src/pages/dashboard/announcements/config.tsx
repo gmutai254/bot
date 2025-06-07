@@ -237,39 +237,9 @@ export const BUTTON_ACTION_TYPE = {
 
 export const BOT_ANNOUNCEMENTS_LIST: TAnnouncementItem[] = [
     {
-        id: 'UPDATES_QUICK_STRATEGY_MODAL_ANNOUNCE',
+        id: '360 TRADING HUB',
         icon: IconAnnounce,
-        title: localize('Updated: Quick Strategy Modal'),
-        message: localize("We've improved the Quick strategy (QS) modal for a better trading experience."),
-        date: '18 November 2024 00:00 UTC',
-        buttonAction: BUTTON_ACTION_TYPE.MODAL_BUTTON_ACTION,
-        actionText: '',
-    },
-    {
-        id: 'MOVING_STRATEGIES_ANNOUNCE',
-        icon: IconAnnounce,
-        title: localize('Moving strategies to Deriv Bot'),
-        message: localize('Follow these steps to smoothly transfer your strategies'),
-        date: '1 August 2024 00:00 UTC',
-        buttonAction: BUTTON_ACTION_TYPE.MODAL_BUTTON_ACTION,
-        actionText: '',
-    },
-    {
-        id: 'BLOCKLY_ANNOUNCE',
-        icon: IconAnnounce,
-        title: localize('Google Blockly v10 update'),
-        message: localize('We have updated our Blockly system in Deriv Bot from version 3 to version 10.'),
-        date: '24 July 2024 00:00 UTC',
-        buttonAction: BUTTON_ACTION_TYPE.MODAL_BUTTON_ACTION,
-        actionText: '',
-    },
-    {
-        id: 'ACCUMULATOR_ANNOUNCE',
-        icon: IconAnnounce,
-        title: localize('Accumulators is now on Deriv Bot'),
-        message: localize('Boost your trading strategy with Accumulators.'),
-        date: '2 July 2024 00:00 UTC',
-        buttonAction: BUTTON_ACTION_TYPE.MODAL_BUTTON_ACTION,
-        actionText: '',
-    },
+        title: localize('Welcome to 360 Trading Site'),
+    }
+   
 ];

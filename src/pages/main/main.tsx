@@ -26,9 +26,15 @@ import RunPanel from '../../components/run-panel';
 import ChartModal from '../chart/chart-modal';
 import Dashboard from '../dashboard';
 import RunStrategy from '../dashboard/run-strategy';
+import LoginPage from '../my-tools/Components/Login';
+import CalculatorPage from '../my-tools/Components/Calculator';
+import PremiumBots from '../my-tools/Members/Premiumbots';
+import { FaSignal , FaCalculator, FaWhatsapp, FaRobot} from "react-icons/fa";
+
 
 const ChartWrapper = lazy(() => import('../chart/chart-wrapper'));
 const Tutorial = lazy(() => import('../tutorials'));
+
 
 const AppWrapper = observer(() => {
     const { connectionStatus } = useApiBase();
@@ -58,7 +64,7 @@ const AppWrapper = observer(() => {
     const { clear } = summary_card;
     const { DASHBOARD, BOT_BUILDER } = DBOT_TABS;
     const init_render = React.useRef(true);
-    const hash = ['dashboard', 'bot_builder', 'chart', 'tutorial'];
+    const hash = ['dashboard', 'signal_tool', 'bot_builder', 'calculator','bots', 'chart', 'tutorial'];
     const { isDesktop } = useDevice();
     const location = useLocation();
     const navigate = useNavigate();
@@ -151,6 +157,7 @@ const AppWrapper = observer(() => {
     );
 
     return (
+        <>
         <React.Fragment>
             <div className='main'>
                 <div
@@ -171,7 +178,8 @@ const AppWrapper = observer(() => {
                                     <LabelPairedObjectsColumnCaptionRegularIcon
                                         height='24px'
                                         width='24px'
-                                        fill='var(--text-general)'
+                                        fill='orange'
+                                        
                                     />
                                     <Localize i18n_default_text='Dashboard' />
                                 </>
@@ -180,26 +188,82 @@ const AppWrapper = observer(() => {
                         >
                             <Dashboard handleTabChange={handleTabChange} />
                         </div>
+
+
+                       <div
+                            label={ 
+                                <span className="my-tab-label">
+                                    <FaSignal
+                                        height='24px'
+                                        width='24px'
+                                        fill='white'
+                                    />
+                                    <Localize i18n_default_text='Signal Tool' />
+                                </span>
+                            }
+                            id='id-signal-tool'
+                             
+                        >
+                            <LoginPage />
+                        </div>
+
+                        
                         <div
                             label={
                                 <>
                                     <LabelPairedPuzzlePieceTwoCaptionBoldIcon
                                         height='24px'
                                         width='24px'
-                                        fill='var(--text-general)'
+                                        fill='orange'
                                     />
                                     <Localize i18n_default_text='Bot Builder' />
                                 </>
                             }
                             id='id-bot-builder'
                         />
+                          
+                       <div
+                            label={ 
+                                <>
+                                    <FaCalculator
+                                        height='24px'
+                                        width='24px'
+                                        fill='orange'
+                                    />
+                                    <Localize i18n_default_text='Stake Calculator' />
+                                </>
+                            }
+                            id='id-stake-calculator'
+                             
+                        >
+                            <CalculatorPage />
+                        </div>
+
+
+                           <div
+                            label={ 
+                                <>
+                                    <FaRobot
+                                        height='24px'
+                                        width='24px'
+                                        fill='orange'
+                                    />
+                                    <Localize i18n_default_text='Premium Bots' />
+                                </>
+                            }
+                            id='id-premium-bots'
+                             
+                        >
+                            <PremiumBots />
+                        </div>
+
                         <div
                             label={
                                 <>
                                     <LabelPairedChartLineCaptionRegularIcon
                                         height='24px'
                                         width='24px'
-                                        fill='var(--text-general)'
+                                        fill='orange'
                                     />
                                     <Localize i18n_default_text='Charts' />
                                 </>
@@ -220,8 +284,8 @@ const AppWrapper = observer(() => {
                                     <LegacyGuide1pxIcon
                                         height='16px'
                                         width='16px'
-                                        fill='var(--text-general)'
-                                        className='icon-general-fill-g-path'
+                                        fill='orange'
+                                        
                                     />
                                     <Localize i18n_default_text='Tutorials' />
                                 </>
@@ -238,6 +302,7 @@ const AppWrapper = observer(() => {
                         </div>
                     </Tabs>
                 </div>
+               
             </div>
             <DesktopWrapper>
                 <div className='main__run-strategy-wrapper'>
@@ -264,6 +329,13 @@ const AppWrapper = observer(() => {
                 {message}
             </Dialog>
         </React.Fragment>
+        <a href='https://wa.me/254748998726?text=Hi%20360%20Trading%20Hub.'>
+        <div className="whatsapp-float">
+          <span>Need Help?<br /><span className='admin-tag'>Start Chat</span></span>
+          <span className='whats-icon'><FaWhatsapp /></span>
+        </div>
+      </a>
+        </>
     );
 });
 

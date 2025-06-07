@@ -109,7 +109,7 @@ const BotBuilder = observer(() => {
         <>
             <div
                 className={classNames('bot-builder', {
-                    'bot-builder--active': active_tab === 1 && !is_preview_on_popup,
+                    'bot-builder--active': active_tab === 2 && !is_preview_on_popup,
                     'bot-builder--inactive': is_preview_on_popup,
                     'bot-builder--tour-active': active_tour,
                 })}

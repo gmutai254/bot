@@ -1,0 +1,235 @@
+.Auth-section{
+   width: 100%;
+   height: 100vh;
+   display: flex;
+   align-items: center;
+   padding: 0;
+   flex-direction: column;
+   background-color: #1d3852;
+   margin-top: 10px;
+   
+}
+.Auth-section h3{
+    color: white;
+    border-bottom: 4px solid aqua;
+    padding: 5px 25px;
+    border-radius: 4px;
+    margin: 0;
+    margin-top: 10px;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+.notice-text{
+    color: white;
+    font-size: 15px;
+    text-align: center;
+    font-style: italic;
+    padding: 5px;
+    width: 30%;
+    background-color: rgb(104, 12, 27);
+    border-radius: 3px;
+    border-top: 4px solid red;
+    
+}
+.notice-text a{
+    color: rgb(163, 163, 185);
+    background-color: rgb(9, 155, 70);
+    color: rgb(231, 247, 13);
+    padding: 5px 30px;
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 0;
+    transition: 0.5s ease;
+    box-shadow: 0px 0px 5px white;
+    margin-top: 3px;
+    font-weight: 700;
+    
+    
+
+}
+.notice-text a:hover{
+    background-color: #05315a;
+}
+.notice-text span{
+    color:rgb(0, 247, 255);
+    font-weight: 600;
+    margin-left: 4px;
+}
+.Auth-section h4{
+    color: aqua;
+    font-size: 17px;
+    padding: 0;
+    margin-bottom: 3px;
+    margin-top: 6px;
+}
+.Auth-section h4 span{
+    color: white;
+    font-weight: 800;
+}
+.login-area{
+    height:fit-content;
+    width: 400px;
+    background: #0d1a3a;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid grey;
+    padding: 15px;
+    text-align: center;
+    
+}
+
+
+.login-form{
+    
+    transform: translateX(0px);
+    transition: .5s ease;
+
+}
+
+.login-form.active{
+    transform: translateX(-410px);
+}
+.input-box{
+    margin: 35px 0;
+    height: 40px;
+    width: 300px;
+    border-bottom: 2px solid rgba(0,0,0,.5);
+    position: relative;
+   
+    
+}
+.input-box input{
+    width: 87%;
+    height: 100%;
+    float: right;
+    border: none;
+    outline: none;
+    font-size: 19px;
+    color: rgba(0,0,0,.9);
+    padding: 0px 7px;
+    background: rgb(233, 226, 226);
+    margin-top: 20px;
+    border-radius: 3px;
+    
+}
+.input-box label{
+    position: absolute;
+    left: 0;
+    transform: translateY(-56%);
+    font-size: 19px;
+    font-weight: 500;
+    color: white;
+    
+}
+.input-box i{
+    position: absolute;
+    left: 0px;
+    display: flex;
+    transform: translateY(50%);
+    font-size: 22px;
+    color:rgb(255, 217, 0);
+    margin-top: 20px; 
+}
+
+input::placeholder{
+    font-size: 17px;
+}
+input#checked{
+    margin-right: 3px;
+}
+.forgot-section{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    
+}
+.forgot-section span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+}
+.forgot-section span a{
+    color: #333;
+    text-decoration: none;
+}
+.forgot-section .reset-link{
+    color: aqua;
+}
+.required-mark{
+    color: rgb(148, 24, 24);
+    margin-left: 5px;
+}
+.login-btn{
+    color: aqua;
+   display: flex;
+   justify-self: center;
+   margin-top: 10px;
+    
+}
+
+
+
+
+.mybutton{
+  background-color: #ffc107;
+  color: #0d1a3a;
+  text-decoration: none;
+  padding: 7px 10px;
+  border-radius: 5px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  transition: 0.4s ease;
+  box-shadow: 0 5px 25px rgba(255, 193, 7, 0.6);
+  position: relative;
+  overflow: hidden;
+  margin-top: 5px;
+  border: none;
+  width: 100%; 
+  justify-content: center;
+  column-gap: 10px;
+  cursor: pointer;
+}
+.mybutton:hover {
+  background-color: #fff;
+  color: #092a47;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width:500px) {
+  .login-area{
+width: 90%;
+  } 
+  .input-box{
+    width: 280px;
+  } 
+  .register-area{
+    width: 300px;
+    
+  }
+  .notice-text{
+    width: 90%;
+    font-size: 14px;
+  }
+  
+
+}
+
+@keyframes blink2 {
+    0%,100%{
+        color: rgb(9, 155, 70);
+    }
+    50%{
+        color: rgb(209, 212, 12);
+    }
+}

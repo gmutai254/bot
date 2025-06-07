@@ -1,0 +1,265 @@
+.page-container{
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #e0e0e0;
+    padding: 30px;
+    height: 500px;
+    overflow: scroll;
+  
+}
+.bots-header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+.bots-header h1{
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    background-color: goldenrod;
+    border-radius: 14px;
+    padding: 10px 20px;
+    width: fit-content;
+    border-left: 4px solid rgb(13, 13, 155);
+    
+}
+.bots-header .scrolling{
+  color: red;
+  font-weight: 700;
+  font-size: 13px;
+  
+}
+
+.process{
+    display: flex;
+    gap: 10px;
+}
+
+.step {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 12px 16px;
+    max-width: 180px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+  }
+  
+  .step:hover {
+    transform: translateY(-3px);
+  }
+  
+  .step-icon {
+    font-size: 1.6rem;
+    color: #ffc107;
+    margin-bottom: 6px;
+  }
+  
+  .step-title {
+    color: #234581;
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+  
+  .step-desc {
+    font-size: 0.8rem;
+    color: #666;
+    line-height: 1.2;
+  }
+  
+  
+  .step-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 0px;
+  }
+  
+  .step-icon {
+    font-size: 1.2rem;
+    color: #ffc107;
+    margin: 0;
+  }
+  
+  .step-title {
+    color: #234581;
+    font-size: 1rem;
+    margin: 0;
+  }
+.bots-section{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+.bot-container{
+    width: 40%;
+    height: fit-content;
+    box-shadow: 5px 5px 5px 5px grey;
+    background-color: white;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.bot-title{
+    width: 100%;
+    background-color: rgb(7, 3, 53);
+    padding: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+.marvel{
+    background-color: rgb(95, 72, 8);
+}
+.alpha{
+    background-color: rgb(90, 11, 80);
+}
+.masterjet{
+    background-color: rgb(22, 38, 83);
+}
+.bot-description{
+    width: 100%;
+    padding: 10px;
+    text-align: start;
+    font-size: 16px;
+    font-weight: 400;
+    height: fit-content;
+}
+.bot-price{
+    font-size: 25px;
+    color: rgb(133, 2, 83);
+    font-weight: bold;
+}
+.bot-price span{
+    color: rgb(6, 6, 61);
+}
+.buttons-section{
+    width: 90%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    border-top: 2px solid blue;
+    padding-top: 7px;
+}
+.buy-button{
+    width: fit-content;
+    padding: 5px 20px;
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: rgb(8, 83, 39);
+    color: white;
+    cursor: pointer;
+    transition: 0.5s ease;
+    box-shadow: 0px 5px 5px grey;
+}
+.buy-button:hover{
+    background-color: rgb(3, 56, 3);
+}
+.video-button{
+    width: fit-content;
+    padding: 5px 20px;
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: rgb(173, 0, 0);
+    color: white;
+    cursor: pointer;
+    transition: 0.5s ease;
+    box-shadow: 0px 5px 5px grey; 
+}
+.bot-price .usd-price{
+  color: goldenrod;
+}
+.signal-link span{
+  animation: blink 1s ease infinite;
+  padding: 0px 5px;
+  border-radius: 5px;
+  padding-top: -3px;
+}
+@media (max-width:1100px) {
+  .bot-container{
+    width: 45%;
+  }
+}
+@media (max-width:850px) {
+    .bot-container{
+      width: 80%;
+    }
+    .bot-description{
+        height: fit-content;
+    }
+  }
+
+@media (max-width:600px) {
+    .page-container{
+        margin: 0;
+        padding: 10px;
+    }
+    .bot-container{
+        width: 100%;
+        height: fit-content;
+    }
+    .bot-description{
+        height: fit-content;
+        font-size: 15px;
+        line-height: 20px;
+    }
+    .bot-title{
+      font-size: 15px;
+    }
+    .step{
+      padding: 5px;
+    }
+    .bots-header{
+      width: 100%;
+
+    }
+    .bots-header h1{
+      padding: 5px;
+      font-size: 17px;
+      border-radius: 3px;
+      text-align: center;
+    }
+    .bot-price{
+      font-size: 15px;
+    }
+    .buy-button{
+        font-size: 16px;
+    }
+    .video-button{
+        font-size: 16px;
+    }
+}
+.red-text{
+  color: red;
+  font-weight: 600;
+}
+
+@keyframes blink {
+  0%, 100%{
+    color: white;
+    background-color: red;
+  }
+  50%{
+    color: white;
+    background-color: white;
+  }
+}
