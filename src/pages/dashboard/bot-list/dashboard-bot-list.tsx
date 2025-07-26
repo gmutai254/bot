@@ -62,11 +62,7 @@ const DashboardBotList = observer(() => {
     return (
         <div className='bot-list__container'>
             <div className='bot-list__wrapper'>
-                <div className='bot-list__title'>
-                    <Text size={isDesktop ? 's' : 'xs'} weight='bold'>
-                        <Localize i18n_default_text='Your bots:' />
-                    </Text>
-                </div>
+             
                 <div className='bot-list__header'>
                     {HEADERS.map(({ label, className }) => {
                         return (

@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect } from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -29,8 +29,9 @@ import RunStrategy from '../dashboard/run-strategy';
 import LoginPage from '../my-tools/Components/Login';
 import CalculatorPage from '../my-tools/Components/Calculator';
 import PremiumBots from '../my-tools/Members/Premiumbots';
-import { FaSignal , FaCalculator, FaWhatsapp, FaRobot} from "react-icons/fa";
-
+import AnalysisPage from '../my-tools/AnalysisTools/AnalysisDash';
+import { FaSignal , FaCalculator, FaWhatsapp, FaRobot, FaAdjust } from "react-icons/fa";
+import { RiAlertFill } from "react-icons/ri";
 
 const ChartWrapper = lazy(() => import('../chart/chart-wrapper'));
 const Tutorial = lazy(() => import('../tutorials'));
@@ -64,7 +65,7 @@ const AppWrapper = observer(() => {
     const { clear } = summary_card;
     const { DASHBOARD, BOT_BUILDER } = DBOT_TABS;
     const init_render = React.useRef(true);
-    const hash = ['dashboard', 'signal_tool', 'bot_builder', 'calculator','bots', 'chart', 'tutorial'];
+    const hash = ['dashboard', 'signal_tool', 'bot_builder', 'calculator','bots', 'analysis_tool','chart', 'tutorial'];
     const { isDesktop } = useDevice();
     const location = useLocation();
     const navigate = useNavigate();
@@ -156,6 +157,11 @@ const AppWrapper = observer(() => {
         [active_tab]
     );
 
+     const [showOverlay, setShowOverlay] = useState(false);
+
+  const handleOpen = () => setShowOverlay(true);
+  const handleClose = () => setShowOverlay(false);
+
     return (
         <>
         <React.Fragment>
@@ -198,7 +204,7 @@ const AppWrapper = observer(() => {
                                         width='24px'
                                         fill='white'
                                     />
-                                    <Localize i18n_default_text='Signal Tool' />
+                                    <Localize i18n_default_text='Signal Tools' />
                                 </span>
                             }
                             id='id-signal-tool'
@@ -216,7 +222,7 @@ const AppWrapper = observer(() => {
                                         width='24px'
                                         fill='orange'
                                     />
-                                    <Localize i18n_default_text='Bot Builder' />
+                                    <Localize i18n_default_text='Bot Editor' />
                                 </>
                             }
                             id='id-bot-builder'
@@ -255,6 +261,22 @@ const AppWrapper = observer(() => {
                              
                         >
                             <PremiumBots />
+                        </div>
+                         <div
+                            label={ 
+                                <>
+                                    <FaAdjust 
+                                        height='24px'
+                                        width='24px'
+                                        fill='orange'
+                                    />
+                                    <Localize i18n_default_text='Analysis Tool' />
+                                </>
+                            }
+                            id='id-analysis-tool'
+                             
+                        >
+                            <AnalysisPage />
                         </div>
 
                         <div
@@ -331,10 +353,37 @@ const AppWrapper = observer(() => {
         </React.Fragment>
         <a href='https://wa.me/254748998726?text=Hi%20360%20Trading%20Hub.'>
         <div className="whatsapp-float">
-          <span>Need Help?<br /><span className='admin-tag'>Start Chat</span></span>
+          <span>Need Help?<br /><span className='admin-tag'>Let's Chat</span></span>
           <span className='whats-icon'><FaWhatsapp /></span>
         </div>
       </a>
+
+      <div>
+      <button onClick={handleOpen} className='risk-btn'><RiAlertFill/> Risk Disclaimer!</button>
+
+      {showOverlay && (
+        <div className="overlayy">
+          <div className="overlayy-content">
+            <h2>Risk Disclaimer</h2>
+            <p>
+              Deriv offers complex derivatives, such as options and contracts for difference (“CFDs”).
+              These products may not be suitable for all clients, and trading them puts you at risk.
+              Please make sure that you understand the following risks before trading Deriv products:
+            </p>
+            <ul>
+              <li>You may lose some or all of the money you invest in the trade.</li>
+              <li>
+                If your trade involves currency conversion, exchange rates will affect your profit and loss.
+              </li>
+              <li>
+                You should never trade with borrowed money or with money that you cannot afford to lose.
+              </li>
+            </ul>
+            <button onClick={handleClose} className="close-btnn">I UNDERSTAND</button>
+          </div>
+        </div>
+      )}
+    </div>
         </>
     );
 });

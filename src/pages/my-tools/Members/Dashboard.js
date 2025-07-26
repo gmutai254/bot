@@ -6,6 +6,8 @@ import AnalysisTool from "./Analysis";
 import "../Styles/dashboard.css";
 import { signOut } from 'firebase/auth';
 import MatchesTool from './Matches';
+import EvenOddTool from './EvenOddSignal';
+import RiseFallTool from './RiseFall';
 
 const Dash = () => {
   const [userData, setUserData] = useState("loading");
@@ -73,15 +75,18 @@ const handleSelection = (e) => {
               onChange={handleSelection}
             >
               <option value="">-- Choose a Tool --</option>
+              <option value="risefall" className="my-new-text">Rise/Fall Signals -NEW!</option>
+               <option value="evenodd" >Even Odd Tool </option>
               <option value="analysis">Market Sprinter Tool</option>
               <option value="marvel">Advanced Marvel Tool</option>
-              <option value="matches">MATCHES/DIFFERS TOOL</option>
-            </select>
+                        </select>
 
             <div className="content-load">
               {selectedTool === "analysis" && <AnalysisTool />}
               {selectedTool === "marvel" && <MarvelTool />}
               {selectedTool === "matches" && <MatchesTool />}
+              {selectedTool === "evenodd" && <EvenOddTool />}
+              {selectedTool === "risefall" && <RiseFallTool />}
               {selectedTool === "" && <h1>Waiting for your selection...</h1>}
             </div>
           </div>

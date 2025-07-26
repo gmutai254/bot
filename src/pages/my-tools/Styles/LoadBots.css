@@ -1,0 +1,73 @@
+.page-container-bots{
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    width: 100%;
+    display: flex;
+    background-color: #ebe8e8c5;
+    padding: 30px;
+    height: 100%;
+    overflow: scroll;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    
+  
+}
+.bot-card{
+  width: 280px;
+  height: 100px;
+  background-color: #f5f4f4;
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #d31717;
+  transition: 0.5s ease;
+  
+}
+.bot-card:hover{
+  transform: translateY(-5px) ;
+}
+.bot-card .bot-name{
+  font-size: 17px;
+  font-weight: 700;
+  color: #040731;
+  margin: 0;
+}
+.bot-card .bot-description{
+  font-size: 12px;
+  font-style: italic;
+  color: rgb(192, 159, 10);
+  text-align: center;
+  margin: 0;
+}
+.bot-card .loadbot-btn{
+  background-color:#120658 ;
+  color: white;
+  font-size: 17px;
+  font-weight: 600;
+  padding: 5px 15px;
+  width: 90%;
+  border-radius: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.bot-card .loadbot-btn:hover{
+  background-color: #040f2e;
+}
+
+@media (max-width:600px) {
+  .page-container-bots{
+    height: 700px;
+    overflow: scroll;
+    padding-bottom: 200px;
+  }
+
+  
+}

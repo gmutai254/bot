@@ -278,7 +278,7 @@ const loadBlocksFromHeader = (xml_string, block) => {
 
             if (!is_collection) {
                 reject(localize('Remote blocks to load must be a collection.'));
-            }
+            }v
 
             addLoaderBlocksFirst(xml)
                 .then(() => {

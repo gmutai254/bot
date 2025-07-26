@@ -9,11 +9,12 @@ import Text from '@/components/shared_ui/text';
 import { DBOT_TABS } from '@/constants/bot-contents';
 import { useStore } from '@/hooks/useStore';
 import {
-    DerivLightBotBuilderIcon,
-    DerivLightGoogleDriveIcon,
+  
+    
     DerivLightLocalDeviceIcon,
     DerivLightMyComputerIcon,
     DerivLightQuickStrategyIcon,
+    DerivLightBotBuilderIcon
 } from '@deriv/quill-icons/Illustration';
 import { Localize, localize } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
@@ -76,23 +77,9 @@ const Cards = observer(({ is_mobile, has_dashboard_strategies }: TCardProps) => 
         },
 
         {
-            id: 'google-drive',
-            icon: <DerivLightGoogleDriveIcon height='48px' width='48px' />,
-            content: <Localize i18n_default_text='Google Drive' />,
-            callback: () => {
-                openGoogleDriveDialog();
-                rudderStackSendOpenEvent({
-                    subpage_name: 'bot_builder',
-                    subform_source: 'dashboard',
-                    subform_name: 'load_strategy',
-                    load_strategy_tab: 'google drive',
-                });
-            },
-        },
-        {
             id: 'bot-builder',
             icon: <DerivLightBotBuilderIcon height='48px' width='48px' />,
-            content: <Localize i18n_default_text='Bot builder' />,
+            content: <Localize i18n_default_text='Bot Editor' />,
             callback: () => {
                 setActiveTab(DBOT_TABS.BOT_BUILDER);
                 rudderStackSendDashboardClickEvent({
@@ -101,6 +88,7 @@ const Cards = observer(({ is_mobile, has_dashboard_strategies }: TCardProps) => 
                 });
             },
         },
+       
    
 
         {

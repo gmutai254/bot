@@ -1,0 +1,136 @@
+/* OverUnderAnalysis.css */
+
+.overunder-container {
+   background-color: #01162b;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #e100ff;
+  color: #f0f0f0;
+  font-family: Arial, sans-serif;
+ width: 100%;
+ display: flex;
+ flex-direction: column;
+ margin: 0;
+}
+.overunder-container h4{
+  font-size: 20px;
+  margin-bottom: 7px;
+}
+
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+
+
+.digit-buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.digit-buttons button {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+  border-radius: 6px;
+  min-width: 40px;
+  text-align: center;
+  color: #f44336;
+}
+
+.digit-buttons .selected {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.bars-section {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.bar {
+  width: 45%;
+  background-color: #eee;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  height: 20px;
+}
+
+.bar.over {
+  background-color: #eaffea;
+}
+
+.bar.under {
+  background-color: #ffecec;
+}
+
+.bar-fill {
+  height: 100%;
+  transition: width 0.4s ease;
+}
+
+.bar.over .bar-fill {
+  background-color: #4caf50;
+}
+
+.bar.under .bar-fill {
+  background-color: #f44336;
+}
+
+.label {
+  position: absolute;
+  text-align: left;
+  width: 100%;
+  font-weight: bold;
+  font-size: 14px;
+  margin-left: 10px;
+  
+}
+
+.recent-digits {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.result-box {
+  padding: 2px;
+  width: 40px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 6px;
+  color: white;
+  font-size: 20px;
+}
+
+.result-box.over {
+  background-color: #4caf50;
+}
+
+.result-box.under {
+  background-color: #f44336;
+}
+@media (max-width:600px) {
+.result-box{
+  width: 30px;
+  height: 30px;
+  font-size: 15px;
+}
+}

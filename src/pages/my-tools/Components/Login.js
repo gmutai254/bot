@@ -5,6 +5,8 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import {auth} from '../firebase'
 import Dashboard from '../Members/Dashboard'
 import { onAuthStateChanged } from 'firebase/auth';
+import Modal from './myModal';
+import ToolPay from './ToolPay';
 
 
 const Login =() =>{
@@ -30,8 +32,7 @@ const Login =() =>{
        
      const handleLogin = async (e) => {
         e.preventDefault();
-       
-        
+
         try {
           await signInWithEmailAndPassword(auth, email, password);
           
@@ -39,51 +40,51 @@ const Login =() =>{
           alert(error.message);
         }
       };
+       const [modalContent, setModalContent] = useState(null);
+      
+       
+        const closeModal = () => setModalContent(null);
   return (
-    <>
-    {user?<Dashboard/>:
-    <div className='Auth-section'>
-      <h3>360 ENTRY TOOL - NO ANALYSIS</h3>
-      <p className='notice-text'>
-      Get LIFETIME ACCESS, a bot that is compatible with the Tool & Guide on how to use it Profitably 
-       @ <span>$45 / KES 5,000</span> .<br></br>
-      <a href='https://wa.me/254748998726?text=Hello%20360%20Admin.'>
-      Contact Admin</a></p>
-      <h4>Already a Member? <span>Login</span></h4>
-        <div className='login-area'>
-          
-           <div className='login-form'>
-            
-            <form action="#" onSubmit={handleLogin}>
-            <div className="input-box">
-                <i className='bx bxs-envelope'></i>
-                <label >Email<span className='required-mark'>*</span></label>
-                <input type="email" placeholder="Enter Your Email" required 
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}/>
-            </div>
-            <div className="input-box">
-                <i className='bx bxs-lock-alt ' ></i>
-                <input type="password" placeholder="Enter Your Password" required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                />
-                
-                <label>Password <span className='required-mark'>*</span></label>
-              
-            </div>
-            <div className="forgot-section">
-               
-                <span><Link to='https://register.360tradinghub.co.ke/reset' className='reset-link'>Reset Password</Link></span>
-            </div>
-            <button className="mybutton">Login</button>
-        </form>
+      <>
+          {user ? (
+              <Dashboard />
+          ) : (
+              <div className='Auth-section'>
+                  <h3>360 ENTRY TOOL - NO ANALYSIS</h3>
+                  <p className='notice-text'>
+                      Marvel/Sprinter i.e Over/Under Tool  @<span>45 USD/ KES 5,000</span><br/>
+                      EVEN / ODD A.I TOOL  @<span>50 USD/ KES 5,500</span>
+                      <br></br>
+                      <a onClick={() => setModalContent(<ToolPay />)}>Make Payment</a>
+                      
+                  </p> 
+                  <h4 className='help-link'>Need help? <a href='https://wa.me/254748998726?text=Hi,%20I%20need%20help%20in%20making%20Payment.'>Click here</a> </h4>
+                <div className="form-container">
+                  
+                  <p className="title">Member Login</p>
+                  <form className='form' action='#' onSubmit={handleLogin}>
+                    <input type="email" className="input" placeholder="Email" required  
+                    value={email}
+                     onChange={(e) => setEmail(e.target.value)}
+                     />
+                    <input type="password" className="input" placeholder="Password" required 
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}/>
+                    <button className="form-btn">Log in</button>
+                    <p className="page-link">
+                      <a href='https://register.360tradinghub.co.ke/reset' className="page-link-label">Forgot Password?</a>
+                    </p>
+                  </form>
+                  
 
-            </div> 
-        </div>
-    </div>}
-    </>
-  )
+                </div>
+                 {modalContent && <Modal onClose={closeModal}>{modalContent}</Modal>} 
+              </div>
+              
+              
+          )}
+      </>
+  );
 }
 
-export default Login
+export default Login;

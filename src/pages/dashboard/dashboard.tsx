@@ -9,7 +9,8 @@ import OnboardTourHandler from '../tutorials/dbot-tours/onboarding-tour';
 import Announcements from './announcements';
 import Cards from './cards';
 import InfoPanel from './info-panel';
-import { FaRobot, FaUserCheck } from "react-icons/fa";
+import { FaRobot, FaUserCheck, FaDownload, FaAdjust  } from "react-icons/fa";
+import axios from 'axios';
 
 type TMobileIconGuide = {
     handleTabChange: (active_number: number) => void;
@@ -22,6 +23,42 @@ const DashboardComponent = observer(({ handleTabChange }: TMobileIconGuide) => {
     const has_dashboard_strategies = !!dashboard_strategies?.length;
     const { isDesktop, isTablet } = useDevice();
     const PREMIUM_BOTS = 4;
+
+    const loadXMLToBotBuilder = (xml_string: string): void => {
+    try {
+        const strategy_id = window.Blockly.utils.idGenerator.genUid();
+
+        window.Blockly.xmlValues = {
+            block_string: xml_string,
+            convertedDom: window.Blockly.utils.xml.textToDom(xml_string),
+            file_name: 'freebot',
+            from: 'my_computer',
+            strategy_id,
+        };
+
+        if (load_modal?.loadStrategyOnBotBuilder) {
+            load_modal.loadStrategyOnBotBuilder();
+        } else {
+            const workspace = window.Blockly.getMainWorkspace();
+            workspace.clear();
+            window.Blockly.Xml.domToWorkspace(window.Blockly.xmlValues.convertedDom, workspace);
+            workspace.strategy_to_load = xml_string;
+        }
+
+        dashboard.setActiveTab(2);
+    } catch (error) {
+        console.error('Failed to load bot from XML:', error);
+    }
+};
+
+    const loadFreeBot = async () => {
+    try {
+        const response = await axios.get('/sniperbot.xml', { responseType: 'text' });
+        loadXMLToBotBuilder(response.data);
+    } catch (error) {
+        console.error('Failed to fetch freebot.xml', error);
+    }
+};
 
     return (
         <>
@@ -37,16 +74,33 @@ const DashboardComponent = observer(({ handleTabChange }: TMobileIconGuide) => {
                 <div className='tab__dashboard__content'>
                      
                     <div className='quick-panel'>
+                         <div className='tradingsite-link'>
+                             <h3>Need your Own <strong>Trading Site?</strong> <a href='https://site.360tradinghub.co.ke/'> Click Here</a></h3> 
+                        </div>
                         <div className='hub-section'>
                             <button onClick={() => handleTabChange(4)} className='botsnav-button'
                                 >
-                                   <FaRobot /> Get Our Trading Bots
+                                   <FaRobot  className='nav-icon'/> Our Bots & Tools
                                 </button>
                                     
 
-                                <a className='creation-button' href='https://track.deriv.com/_UEAPSNb_-9UKqFKZ7JdnQ2Nd7ZgqdRLk/1/'> 
-                                <FaUserCheck />Create a Trading Account</a>
+                                <a className='creation-button botsnav-button' href='https://track.deriv.com/_UEAPSNb_-9WFfUyb_9NCN2Nd7ZgqdRLk/1/'> 
+                                <FaUserCheck className='acct-icon'/>Open a Deriv Account</a>
+                                 
+
+                            <button onClick={() => handleTabChange(5)} className='botsnav-button analysis-btn'
+                                >
+                                   <FaAdjust  className='nav-icon'/> Analysis Tool
+                                </button>
+                                
+                               
                         </div>
+                        <div className='freebot-section'>
+                                    <p>360 SNIPER BOT V1</p>
+                                    <button onClick={loadFreeBot}>Load Bot</button>      
+                                </div>
+                                
+                       
                         <div
                             className={classNames('tab__dashboard__header', {
                                 'tab__dashboard__header--listed': isDesktop && has_dashboard_strategies,
@@ -74,7 +128,7 @@ const DashboardComponent = observer(({ handleTabChange }: TMobileIconGuide) => {
                                 className={classNames('subtitle', { 'subtitle__has-list': has_dashboard_strategies })}
                             >
                                 {localize(
-                                    'Import a bot from your Computer, Google Drive or Phone to start trading.'
+                                    'Load 360 SNIPER BOT or Import a bot from your Computer/Phone to start trading.'
                                 )}
                             </Text>
                         </div>

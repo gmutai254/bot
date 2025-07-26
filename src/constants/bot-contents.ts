@@ -18,12 +18,13 @@ export const DBOT_TABS: TDashboardTabIndex = Object.freeze({
     BOT_BUILDER: 2,
     CALCULATOR:3,
     PREMIUM_BOTS:4,
-    CHART: 5,
-    TUTORIAL: 6,
+    ANALYSIS_TOOL:5,
+    CHART: 6,
+    TUTORIAL: 7,
 });
 
 export const MAX_STRATEGIES = 10;
 
-export const TAB_IDS = ['id-dbot-dashboard','id-signal-tool', 'id-bot-builder', 'id-stake-calculator', 'id-premium-bots','id-charts', 'id-tutorials'];
+export const TAB_IDS = ['id-dbot-dashboard','id-signal-tool', 'id-bot-builder', 'id-stake-calculator', 'id-premium-bots','id-analysis-tool','id-charts', 'id-tutorials'];
 
 export const DEBOUNCE_INTERVAL_TIME = 500;

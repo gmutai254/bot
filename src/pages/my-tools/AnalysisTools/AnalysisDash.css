@@ -1,0 +1,84 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  margin: auto;
+  align-items: center;
+  width: 100vw;
+  background-color: #01162b;
+  height: 100vh;
+}
+
+.analysis-card-section{
+    width: 45%;
+   
+}
+
+.dashboard-controls {
+  width: 100%;
+  display: flex;
+  gap: 5px;
+  margin-bottom: 5px;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.dashboard-controls label {
+  font-weight: bold;
+  color: #ffffff;
+  font-size: 17px;
+}
+
+.dashboard-controls select,
+.dashboard-controls input {
+  margin-left: 5px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #03fd4e;
+  color: rgb(0, 255, 55);
+  width: fit-content;
+  font-size: 17px;
+}
+.dashboard-controls input
+{
+  width: 70px;
+  margin-top: 3px;
+}
+
+.container-section-my{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    max-width: 1400px;
+    width: 100%;
+}
+
+.current-price-display{
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 5px;
+  background-color: blue;
+  padding: 5px 22px;
+  border-radius: 7px;
+}
+
+
+@media (max-width: 868px) {
+
+.container-section-my{
+  display: grid;
+  border-top: 2px solid orange;
+  padding-top: 10px;
+  padding-bottom: 200px;
+  height: 80vh;
+  overflow-y: scroll;
+}
+.analysis-card-section{
+  width: 100%;
+}
+}

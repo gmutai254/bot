@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../Styles/calculator.css';
+import { standalone_routes } from '@/components/shared';
 
 function Calculator() {
     const [capital, setCapital] = useState('');
@@ -83,6 +84,7 @@ function Calculator() {
   </p>
 
         </div>
+       
       </div>
   );
 }

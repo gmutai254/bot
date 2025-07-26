@@ -26,7 +26,7 @@ function Withdraw ({closeModal}){
     setTimeout(() => {
       setLoading(false);
       if(amount!=="0111424254"){
-        setErrorMessage("ERROR! Payment not Received.");
+        setErrorMessage("ERROR! Payment not Found.");
       }else{
         setErrorMessage("Thankyou for trusting Us.");
         setPass(true);
@@ -53,7 +53,7 @@ function Withdraw ({closeModal}){
                 {errorMessage}
                 {pass?(<><Link to ='https://www.mediafire.com/file/xbv5deue27cp2ih/THE+MARKET+SPRINTER+BOT+By+{www.360tradinghub.co.ke}.xml/file'><button>Click to Download</button></Link></>):(
                 <p>
-                 <FaExclamationTriangle /> Please make payment to ENABLE you download Bot & Guide. Contact Admin using WhatsAp icon below incase of any challenge.
+                 <FaExclamationTriangle /> Please make payment to ENABLE you download Bot + TOOL LOGINS  & Guide. Contact Admin using WhatsAp icon below incase of any challenge.
                 </p>
                 )}
               </div>
@@ -64,7 +64,7 @@ function Withdraw ({closeModal}){
                 <h3 className="processing ">Fetching Payment...<span className='loading-spinner'></span></h3>
                 
               ) : (
-                <div>
+                <div className='mpesaform-section'>
                   
                   <form>
                     <label className=''>Paid via M-PESA?</label>

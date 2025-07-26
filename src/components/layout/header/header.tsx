@@ -159,11 +159,7 @@ const AppHeader = observer(() => {
             })}
         >
             <Wrapper variant='left'>
-                <AppLogo />
-                <MobileMenu />
-                {isDesktop && <MenuItems.TradershubLink />}
-                {isDesktop && <PlatformSwitcher />}
-                {isDesktop && <MenuItems />}
+                <h3 className='mysite-heading'>360 Trading Site</h3>
             </Wrapper>
             <Wrapper variant='right'>{renderAccountSection()}</Wrapper>
         </Header>

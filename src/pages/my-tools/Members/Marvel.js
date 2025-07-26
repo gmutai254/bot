@@ -3,7 +3,6 @@ import '../Styles/marvel.css';
 import { auth, db } from '../firebase';
 import { doc, getDoc } from 'firebase/firestore';
 
-
 const Marvel = () => {
   const [selectedIndex, setSelectedIndex] = useState("Volatility 10 (1s)");
   const [prices, setPrices] = useState({});
@@ -15,168 +14,131 @@ const Marvel = () => {
   const [entryFound, setEntryFound] = useState(false);
   const [inCooldown, setInCooldown] = useState(false);
   const [ws, setWs] = useState(null);
-
-
+  const [userData, setUserData] = useState("loading");
+  const [loading, setLoading] = useState(true);
 
   const indices = [
-      { value: "R_10", label: "Volatility 10" },
-      { value: "R_25", label: "Volatility 25" },
-      { value: "R_50", label: "Volatility 50" },
-      { value: "R_75", label: "Volatility 75" },
-      { value: "R_100", label: "Volatility 100" },
-      { value: "1HZ10V", label: "Volatility 10 (1s)" },
-      { value: "1HZ25V", label: "Volatility 25 (1s)" },
-      { value: "1HZ50V", label: "Volatility 50 (1s)" },
-      { value: "1HZ75V", label: "Volatility 75 (1s)" },
-      { value: "1HZ100V", label: "Volatility 100 (1s)" }
-    ];
-  
-   
-    useEffect(() => {
-      if (ws) {
-        ws.close();
-      }
-  
-      const selectedSymbol = indices.find(index => index.label === selectedIndex)?.value;
-      if (!selectedSymbol) return;
-  
-      const newWs = new WebSocket("wss://ws.binaryws.com/websockets/v3?app_id=70505");
-      setWs(newWs);
-  
-      newWs.onopen = () => {
-        newWs.send(
-          JSON.stringify({
-            ticks: selectedSymbol,
-            subscribe: 1
-          })
-        );
-      };
-  
-      newWs.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        if (data.tick) {
-          const price = data.tick.quote;
-          const lastDigit = parseInt(price.toFixed(selectedIndex.includes("(1s)") ? 2 : 3).slice(-1));
-  
-          setPrices(prevPrices => ({
-            ...prevPrices,
-            [selectedIndex]: price
-          }));
-  
-          setLastDigits(prevDigits => {
-            const updatedDigits = [lastDigit, ...prevDigits.slice(0, 6)];
-            return updatedDigits;
-          });
-  
-  
-        }
-      };
-  
-      newWs.onerror = (error) => {
-        console.error("WebSocket Error:", error);
-      };
-  
-      return () => newWs.close();
-    }, [selectedIndex]);
+    { value: "R_10", label: "Volatility 10" },
+    { value: "R_25", label: "Volatility 25" },
+    { value: "R_50", label: "Volatility 50" },
+    { value: "R_75", label: "Volatility 75" },
+    { value: "R_100", label: "Volatility 100" },
+    { value: "1HZ10V", label: "Volatility 10 (1s)" },
+    { value: "1HZ25V", label: "Volatility 25 (1s)" },
+    { value: "1HZ50V", label: "Volatility 50 (1s)" },
+    { value: "1HZ75V", label: "Volatility 75 (1s)" },
+    { value: "1HZ100V", label: "Volatility 100 (1s)" }
+  ];
 
+  // ✅ WebSocket for real-time price fetch
   useEffect(() => {
-    let entryTimer;
-    if (entryFound) {
-      entryTimer = setTimeout(() => {
-        setEntryFound(false);
-        setInCooldown(true); // Start cooldown after entry
-        setTimeout(() => {
-          setInCooldown(false); // End cooldown after 30 seconds
-        }, 30000);
-      }, 20000); // Entry active for 20 seconds
-    }
+    if (ws) ws.close();
+
+    const selectedSymbol = indices.find(index => index.label === selectedIndex)?.value;
+    if (!selectedSymbol) return;
+
+    const newWs = new WebSocket("wss://ws.binaryws.com/websockets/v3?app_id=70505");
+    let localPreviousPrice = null;
+
+    newWs.onopen = () => {
+      newWs.send(JSON.stringify({
+        ticks: selectedSymbol,
+        subscribe: 1,
+      }));
+    };
+
+    newWs.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data.tick) {
+        const price = data.tick.quote;
+        const precision = selectedIndex.includes("(1s)") ? 2 :
+                          selectedIndex.includes("75") || selectedIndex.includes("50") ? 4 :
+                          selectedIndex.includes("10") || selectedIndex.includes("25") ? 3 : 2;
+        const lastDigit = parseInt(price.toFixed(precision).slice(-1));
+
+        setPrices(prev => ({ ...prev, [selectedIndex]: price }));
+
+        setLastDigits(prev => [lastDigit, ...prev.slice(0, 6)]);
+      }
+    };
+
+    newWs.onerror = err => console.error("WebSocket error:", err);
+
+    setWs(newWs);
+    return () => newWs.close();
+  }, [selectedIndex]);
+
+  // ✅ Handle cooldown & entry lifecycle
+  useEffect(() => {
+    if (!entryFound) return;
+
+    const entryTimer = setTimeout(() => {
+      setEntryFound(false);
+      setInCooldown(true);
+      setTimeout(() => setInCooldown(false), 30000); // 30s cooldown
+    }, 40000); // 40s signal active
+
     return () => clearTimeout(entryTimer);
   }, [entryFound]);
 
   const toggleAnalysis = () => {
     setAnalyzing((prev) => {
-      if (prev) {
-        setEntryFound(false);
-      }
+      if (prev) setEntryFound(false);
       return !prev;
     });
   };
 
-  const displayStatus = useMemo(() => {
-    if (!analyzing) {
-      return {
-        title: 'ABOUT TO ANALYZE',
-        message: 'Set Predictions to check signal',
-      };
-    }
-
-    if (entryFound) {
-      return {
-        title: 'ENTRY FOUND',
-        message: 'Run Marvel Bot NOW',
-      };
-    }
-
+  // ✅ Entry Detection (moved out of useMemo to avoid side effects inside memo)
+  useEffect(() => {
+    if (!analyzing || entryFound || inCooldown) return;
     if (
-      attemptPrediction === '' ||
-      recoveryPrediction === '' ||
-      startingPrediction === '' ||
-      lastDigits.length < 3 ||
-      inCooldown
-    ) {
-      return {
-        title: 'SEARCHING ENTRY',
-        message: 'Please wait for Signal',
-      };
-    }
+      attemptPrediction === '' || recoveryPrediction === '' ||
+      startingPrediction === '' || lastDigits.length < 3
+    ) return;
 
-    const latestDigit = lastDigits[0];
-    const previousDigit = lastDigits[1];
-    const secondPreviousDigit = lastDigits[2];
+    const latest = lastDigits[0];
+    const prev = lastDigits[1];
+    const prev2 = lastDigits[2];
 
     const attempt = parseInt(attemptPrediction);
     const recovery = parseInt(recoveryPrediction);
     const starting = parseInt(startingPrediction);
 
-    if (
-      !isNaN(attempt) &&
-      !isNaN(recovery) &&
-      !isNaN(starting) &&
-      latestDigit > 6 &&
-      previousDigit <= 2 &&
-      secondPreviousDigit <= recovery
-    ) {
-      setEntryFound(true);
-      return {
-        title: 'ENTRY FOUND',
-        message: 'Run Marvel Bot NOW',
-      };
+    if (!isNaN(attempt) && !isNaN(recovery) && !isNaN(starting)) {
+      if (latest > 6 && prev <= 2 && prev2 <= recovery) {
+        setEntryFound(true);
+      }
     }
+  }, [analyzing, lastDigits, attemptPrediction, recoveryPrediction, startingPrediction, inCooldown, entryFound]);
+
+  // ✅ Display Message
+  const displayStatus = useMemo(() => {
+    if (!analyzing) return {
+      title: 'ABOUT TO ANALYZE',
+      message: 'Set Predictions to check signal',
+    };
+
+    if (entryFound) return {
+      title: 'ENTRY FOUND',
+      message: 'Run Marvel Bot NOW',
+    };
 
     return {
       title: 'SEARCHING ENTRY',
       message: 'Please wait for Signal',
     };
-  }, [analyzing, attemptPrediction, recoveryPrediction, startingPrediction, lastDigits, entryFound, inCooldown]);
+  }, [analyzing, entryFound]);
 
   const analysisClass = useMemo(() => {
     switch (displayStatus.title) {
-      case 'ABOUT TO ANALYZE':
-        return 'analysis-display golden';
-      case 'SEARCHING ENTRY':
-        return 'analysis-display red';
-      case 'ENTRY FOUND':
-        return 'analysis-display green';
-      default:
-        return 'analysis-display';
+      case 'ABOUT TO ANALYZE': return 'analysis-display golden';
+      case 'SEARCHING ENTRY': return 'analysis-display red';
+      case 'ENTRY FOUND': return 'analysis-display green';
+      default: return 'analysis-display';
     }
   }, [displayStatus]);
 
- 
-
-  const [userData, setUserData] = useState("loading");
-  const [loading, setLoading] = useState(true);
-
+  // ✅ Firebase user fetch
   useEffect(() => {
     const fetchUserData = async () => {
       setLoading(true);
@@ -188,10 +150,8 @@ const Marvel = () => {
       }
     };
 
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        fetchUserData();
-      }
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      if (user) fetchUserData();
     });
 
     return () => unsubscribe();
@@ -199,23 +159,26 @@ const Marvel = () => {
 
   return (
     <>
-      {(userData.latestBot === "Advanced" || userData.latestBot === "Sprinter Advanced" || userData.latestBot === "All"|| userData.latestBot === "Advanced Marvel") ? (
+      {(userData.latestBot === "Market Sprinter" || userData.latestBot === "Sprinter Advanced" || userData.latestBot === "All" || userData.latestBot === "Advanced Marvel") ? (
         <div className="marvel-container">
           <h2>Advanced Marvel Tool</h2>
+
+          {/* Index Selector */}
           <div className="vol-selection">
             <select value={selectedIndex} onChange={(e) => setSelectedIndex(e.target.value)}>
-            {indices.map(index => (
-              <option key={index.value} value={index.label}>{index.label}</option>
-            ))}
-          </select>
+              {indices.map(index => (
+                <option key={index.value} value={index.label}>{index.label}</option>
+              ))}
+            </select>
+
             {prices[selectedIndex] !== undefined && (
-          
-            <h4 >
-              {prices[selectedIndex].toFixed(selectedIndex.includes("(1s)") ? 2 : 3)}
-            </h4>
-          
-        )}
+              <h4>
+                {prices[selectedIndex].toFixed(selectedIndex.includes("(1s)") ? 2 : 3)}
+              </h4>
+            )}
           </div>
+
+          {/* Predictions Input */}
           <div className="input-row">
             <div className="input-group">
               <label htmlFor="startingPrediction">Starting Prediction</label>
@@ -252,6 +215,7 @@ const Marvel = () => {
             </div>
           </div>
 
+          {/* Analyze Button */}
           <button
             className={`analyze-btn ${analyzing ? 'stop' : 'start'}`}
             onClick={toggleAnalysis}
@@ -259,24 +223,19 @@ const Marvel = () => {
             {analyzing ? 'STOP' : 'FIND ENTRY POINT'}
           </button>
 
+          {/* Status Display */}
           <div className={analysisClass}>
             <h3>{displayStatus.title}</h3>
-            {displayStatus.title !== 'SEARCHING ENTRY' && <p>{displayStatus.message}</p>}
-            {displayStatus.title === 'SEARCHING ENTRY' && <div className="s-loader"></div>}
+            {displayStatus.title !== 'SEARCHING ENTRY' ? (
+              <p>{displayStatus.message}</p>
+            ) : (
+              <div className="s-loader"></div>
+            )}
           </div>
         </div>
       ) : (
         <div className="not-allowed">
-          <p className="access-denied">
-            <strong>ACCESS DENIED!</strong> You need to have Advanced Marvel Premium to access its tool.
-          </p>
-          <p>Your Bot is :{loading?(<span className="bot-name">{userData.latestBot}</span>):(<span>Loading...</span>)} </p>
-          <a
-            href="https://wa.me/254748998726?text=How%20much%20discount%20for%20Advanced%20Marvel%20Bot%20&%20Tool."
-            className="mybutton"
-          >
-            Get at a Discount
-          </a>
+          <p className="access-denied"><strong>ACCESS DENIED!</strong> Contact Admin for help.</p>
         </div>
       )}
     </>
